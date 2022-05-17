@@ -34,7 +34,7 @@ let layerControl = L.control.layers({
     "Relief avalanche.report": startLayer,
     "Esri World Imagery": L.tileLayer.provider("Esri.WorldImagery"),
 }, {
-    "Wetterstationen": overlays.stations,
+    //"Wetterstationen": overlays.stations,
     "Temperatur": overlays.temperature,
     "Niederschlag": overlays.precipitation,
     "Schneehöhe": overlays.snowheight,
@@ -53,13 +53,35 @@ L.control.scale({
 L.control.fullscreen().addTo(map);
 
 // Wetterstationslayer beim Laden anzeigen
-overlays.stations.addTo(map);
+ overlays.stations.addTo(map);
 
 // Wetterstationen
 async function loadData(url) {
     let response = await fetch(url);
     let geojson = await response.json();
 
-    // Wetterstationen mit Icons und Popups implementieren
+    let overlay = L.featureGroup();
+    layerControl.addOverlay(overlay, "Wetterstationen");
+    overlay.addTo(map);
+
+    L.geoJSON(geojson, {
+        pointToLayer: function (geoJsonPoint, latlng) {
+            //console.log(geoJsonPoint.properties.NAME);
+            let popup = `
+            
+            <strong>${geoJsonPoint.properties.name}</strong>
+            (${geoJsonPoint.geometry.coordinates[2]}m)  
+            `;
+            return L.marker(latlng, {
+                icon: L.icon({
+                    iconUrl: "icons/wifi.png",
+                })
+            }).bindPopup(popup)
+        }
+    }).addTo(overlay)
+
 }
+
+    // Wetterstationen mit Icons und Popups implementieren
+
 loadData("https://static.avalanche.report/weather_stations/stations.geojson");
