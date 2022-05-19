@@ -39,7 +39,7 @@ const COLORS = {
         }, {
             min: 15,
             max: 20,
-            color: "##ff9b41",  
+            color: "#ff9b41",  
         }, {
             min: 20,
             max: 25,
