@@ -52,8 +52,8 @@ L.control.scale({
 // Fullscreen control
 L.control.fullscreen().addTo(map);
 
-// Wetterstationslayer beim Laden anzeigen
- overlays.stations.addTo(map);
+// Diese Layer beim Laden anzeigen
+ overlays.temperature.addTo(map);
 
  // Stationen
 
@@ -101,9 +101,6 @@ L.control.fullscreen().addTo(map);
         }
     }).addTo(overlays.temperature);
  }
-
-
-loadData("https://static.avalanche.report/weather_stations/stations.geojson");
 
 // Wetterstationen
 async function loadData(url) {
