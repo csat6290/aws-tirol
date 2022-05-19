@@ -66,7 +66,7 @@ L.control.fullscreen().addTo(map);
          }
      }
  };
-console.log(getColor(-40, COLORS.temperature));
+//console.log(getColor(-40, COLORS.temperature));
 
  // Stationen
 
@@ -109,10 +109,14 @@ console.log(getColor(-40, COLORS.temperature));
             <strong>${geoJsonPoint.properties.name}</strong>
             (${geoJsonPoint.geometry.coordinates[2]}m)  
             `;
+            let color = getColor(
+                geoJsonPoint.properties.LT,
+                COLORS.temperature
+            );
             return L.marker(latlng, {
                 icon: L.divIcon({
                     className: "aws-div-icon",
-                    html: `<span>${geoJsonPoint.properties.LT.toFixed(1)}</span>`
+                    html: `<span style="background-color: ${color}">${geoJsonPoint.properties.LT.toFixed(1)}</span>`
                 })
             }).bindPopup(popup);
         }
