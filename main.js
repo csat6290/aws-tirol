@@ -113,6 +113,7 @@ L.control.fullscreen().addTo(map);
                 geoJsonPoint.properties.LT,
                 COLORS.temperature
             );
+            
             return L.marker(latlng, {
                 icon: L.divIcon({
                     className: "aws-div-icon",
