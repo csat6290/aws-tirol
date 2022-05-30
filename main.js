@@ -53,7 +53,7 @@ L.control.scale({
 L.control.fullscreen().addTo(map);
 
 // Diese Layer beim Laden anzeigen
-overlays.humidity.addTo(map);
+overlays.stations.addTo(map);
 
 // Farben nach Wert und Schwellen ermitteln
 
