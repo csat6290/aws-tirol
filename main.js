@@ -272,4 +272,3 @@ async function loadData(url) {
 };
 
 loadData("https://static.avalanche.report/weather_stations/stations.geojson");
-
