@@ -38,7 +38,7 @@ let layerControl = L.control.layers({
     "Temperatur": overlays.temperature,
     "Relative Luftfeuchtigkeit": overlays.humidity,
     "Schneehöhe": overlays.snowheight,
-    "Wind": overlays.wind
+    "Wind": overlays.wind,
 }).addTo(map);
 
 // Layer control ausklappen
@@ -51,6 +51,19 @@ L.control.scale({
 
 // Fullscreen control
 L.control.fullscreen().addTo(map);
+
+// Rainviewer Plugin
+
+L.control.rainviewer({
+    position: 'bottomleft',
+    nextButtonText: '>',
+    playStopButtonText: 'Play/Stop',
+    prevButtonText: '<',
+    positionSliderLabelText: "Hour:",
+    opacitySliderLabelText: "Opacity:",
+    animationInterval: 500,
+    opacity: 0.5
+}).addTo(map);
 
 // Diese Layer beim Laden anzeigen
 overlays.stations.addTo(map);
@@ -259,3 +272,4 @@ async function loadData(url) {
 };
 
 loadData("https://static.avalanche.report/weather_stations/stations.geojson");
+
