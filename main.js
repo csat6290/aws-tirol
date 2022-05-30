@@ -70,26 +70,49 @@ L.control.fullscreen().addTo(map);
 
  // Stationen
 
- let drawStations = function(geojson) {
+ let drawStations = function (geojson) {
     L.geoJSON(geojson, {
         pointToLayer: function (geoJsonPoint, latlng) {
-            //console.log(geoJsonPoint.properties.NAME);
+            let temperatur = ``
+            if (geoJsonPoint.properties.LT > -50 && geoJsonPoint.properties.LT < 50) {
+                temperatur = `Lufttemperatur: ${geoJsonPoint.properties.LT.toFixed(1)}(°C)<br>`
+            }
+            let snowheight = ``
+            if (geoJsonPoint.properties.HS > 0 && geoJsonPoint.properties.HS < 15000) {
+                snowheight = `Schneehöhe: ${geoJsonPoint.properties.HS.toFixed(1)}(cm)<br>`
+            }
+            let wind = ``
+            if (geoJsonPoint.properties.WG > 0 && geoJsonPoint.properties.WG < 300) {
+                wind = `Windgeschwindigkeit: ${(geoJsonPoint.properties.WG * 3.6).toFixed(1)}(km/h)<br>`
+            }
+            let windrichtung = ``
+            if (geoJsonPoint.properties.WR >= 0 && geoJsonPoint.properties.WR <= 360) {
+                windrichtung = `Windrichtung: ${geoJsonPoint.properties.WR.toFixed(1)}(°)<br>`
+            }
+            let humidity = ``
+            if (geoJsonPoint.properties.RH >= 0 && geoJsonPoint.properties.RH <= 100) {
+                humidity = `Relative Luftfeuchtigkeit: ${geoJsonPoint.properties.RH.toFixed(1)}(%)<br>`
+            }
             let popup = `
-            
-            <strong>${geoJsonPoint.properties.name}</strong>
-            (${geoJsonPoint.geometry.coordinates[2]}m)  
+                <strong>${geoJsonPoint.properties.name}</strong>
+                (${geoJsonPoint.geometry.coordinates[2]}m)<br>
+                ${temperatur}
+                ${snowheight}
+                ${wind}
+                ${windrichtung}
+                ${humidity}
+                <a href="https://wiski.tirol.gv.at/lawine/grafiken/1100/standard/dreitage/${geoJsonPoint.properties.plot}.png">Wetterverlaufsgrafik</a>
             `;
             return L.marker(latlng, {
                 icon: L.icon({
-                    iconUrl: "icons/wifi.png",
+                    iconUrl: `icons/wifi.png`,
                     iconAnchor: [16, 37],
                     popupAnchor: [0, -37]
-                    
                 })
             }).bindPopup(popup);
         }
     }).addTo(overlays.stations);
- }
+}
 
  //Temperatur
 
