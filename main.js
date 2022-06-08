@@ -103,7 +103,7 @@ let drawStations = function (geojson) {
                 windrichtung = `Windrichtung: ${geoJsonPoint.properties.WR.toFixed(1)}(°)<br>`
             }
             let humidity = ``
-            if (geoJsonPoint.properties.RH >= 0 && geoJsonPoint.properties.RH <= 100) {
+            if (geoJsonPoint.properties.RH >= 0 && geoJsonPoint.properties.RH <= 200) {
                 humidity = `Relative Luftfeuchtigkeit: ${geoJsonPoint.properties.RH.toFixed(1)}(%)<br>`
             }
             let popup = `
